@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom'
 
 //on click call saga to fetch decks with matching format and then routes to decks view
 function FormatPage() {
+    const history = useHistory();
     const dispatch = useDispatch();
-    function handleClick(format) {
+
+    useEffect(() =>{
         dispatch({
-            type:'FETCH_FORMAT_DECKS',
-            payload: format
-        })
-        
+            type:'CLEAR_FORMAT'
+        })}, []
+    )
+
+
+    function handleClick(format) {
+
+        history.push(`/decks/${format}`)
     }
     return (
         <>

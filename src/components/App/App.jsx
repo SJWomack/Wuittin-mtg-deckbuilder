@@ -19,6 +19,10 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FormatPage from '../FormatPage/FormatPage'
+import DeckListPage from '../DeckListPage/DeckListPage';
+import DecksPage from '../DecksPage/DecksPage';
+import DeckManipulatePage from '../DeckManipulatePage/DeckManipulatePage';
+import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
 
 import './App.css';
 
@@ -47,6 +51,34 @@ function App() {
           >
             <AboutPage />
           </Route>
+
+          <ProtectedRoute
+            exact
+            path='/results/:searchTerm'
+          >
+            <SearchResultsPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute 
+              exact 
+              path='/decks/:format'
+          >
+            <DecksPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/decklist/:id"
+          >
+            <DeckListPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path='/create'
+          >
+            <DeckManipulatePage />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

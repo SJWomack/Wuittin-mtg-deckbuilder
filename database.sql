@@ -8,3 +8,10 @@ CREATE TABLE "user" (
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL
 );
+
+CREATE TABLE "decks" (
+	"id" SERIAL PRIMARY KEY,
+	"deck_name" VARCHAR (150) UNIQUE NOT NULL,
+	"format_type" VARCHAR (50),
+	"user_id" INTEGER REFERENCES "user"
+	);
