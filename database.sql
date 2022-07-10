@@ -15,3 +15,10 @@ CREATE TABLE "decks" (
 	"format_type" VARCHAR (50),
 	"user_id" INTEGER REFERENCES "user"
 	);
+
+CREATE TABLE "deck_cards" (
+	id SERIAL PRIMARY KEY,
+	card_id VARCHAR,
+	deck_id  INTEGER REFERENCES "decks",
+	card_name VARCHAR,
+	card_type VARCHAR);

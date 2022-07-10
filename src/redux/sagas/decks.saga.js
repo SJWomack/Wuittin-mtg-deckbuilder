@@ -16,8 +16,21 @@ function* fetchFormatDecks (action) {
    }
 }
 
-function* formatSaga(){
-    yield takeLatest ('FETCH_FORMAT_DECKS', fetchFormatDecks);
+function* newDeck (action) {
+    try{
+        const newDeck = yield axios.post('/api/deck/new', action.payload)
+        alert('Deck Created!');
+    }
+    catch (err){
+        console.error('deck creation failed', err);
+        alert('Deck Creation failed, please try again');
+        return;
+    }
 }
 
-export default formatSaga;
+function* decksSaga(){
+    yield takeLatest ('FETCH_FORMAT_DECKS', fetchFormatDecks);
+    yield takeLatest ('CREATE_DECK', newDeck);
+}
+
+export default decksSaga;

@@ -33,7 +33,7 @@ function DecksPage() {
             {formatList && formatList.map(deck => <DeckCard  key={deck.id} deck={deck} />)}
            
             <Card sx={{ width: 150, textAlign: 'center' }}>
-                <CardActionArea onClick={() => history.push('/create')}>
+                <CardActionArea onClick={() => history.push('/create/' + format )}>
                     <CardMedia
                         component="img"
                         height="120"

@@ -8,21 +8,35 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useHistory} from 'react-router-dom'
-import {useState} from 'react'
+import DeckManipulatePageQtyPicker from './components/DeckManipulatePageQtyPicker';
+import { useHistory, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom';
+
 
 function DeckManipulatePage() {
   const history = useHistory();
+  const {format} = useParams();
+  const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
-  function createData(card, remove, quantity) {
-    return { card, remove, quantity };
-  }
+  const [deckName, setDeckName] = useState('');
 
-  const rows = []
+
+  const cards = useSelector((store) => store.deckBuild)
+  const cardProperty = Object.values(cards);
+  console.log(cardProperty)
 
   function handleSearch() {
-     history.push(`/results/${searchTerm}`)
-     setSearchTerm('')
+    history.push(`/results/${searchTerm}`)
+    setSearchTerm('')
+  }
+  
+  function handleDeckCreation () {
+    dispatch({
+      type: 'CREATE_DECK',
+      payload:{cadName, format }
+    })
   }
 
   return (
@@ -32,7 +46,8 @@ function DeckManipulatePage() {
           required
           id="outlined-required"
           label="Required"
-          defaultValue="Name Your deck!"
+          value={deckName}
+          onChange={event => setDeckName(event.target.value)}
         />
       </form>
 
@@ -55,20 +70,22 @@ function DeckManipulatePage() {
           <TableHead>
             <TableRow>
               <TableCell>Cards</TableCell>
+              <TableCell align="right">Qty</TableCell>
               <TableCell align="right">Remove</TableCell>
-              <TableCell align="right">Quantity</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {cardProperty.map((card) => (
               <TableRow
-                key={row.name}
+                key={card.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  <Link to={'/details/' + card.id}> {card.name} </Link>
                 </TableCell>
-               
+                <TableCell align="right"><Button><DeckManipulatePageQtyPicker card={card} /></Button></TableCell>
+                <TableCell align="right"><Button onClick={() => {dispatch({type:'DELETE_CARD', payload:card })}}>remove</Button></TableCell>
+
               </TableRow>
             ))}
           </TableBody>
@@ -76,10 +93,14 @@ function DeckManipulatePage() {
       </TableContainer>
 
 
-      <Button variant="contained" size="medium">
+      <Button onClick={() => handleDeckCreation} variant="contained" size="medium">
         Save
       </Button>
-      <Button variant="contained" size="medium" onClick= {() => history.goBack()}>
+      <Button variant="contained" size="medium"
+        onClick={() => {
+          dispatch({type:'CLEAR_DECK_BUILD'});
+          history.goBack();
+        }}>
         Cancel
       </Button>
     </>

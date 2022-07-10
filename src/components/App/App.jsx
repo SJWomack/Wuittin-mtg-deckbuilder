@@ -75,7 +75,7 @@ function App() {
 
           <ProtectedRoute
             exact
-            path='/create'
+            path='/create/:format'
           >
             <DeckManipulatePage />
           </ProtectedRoute>
