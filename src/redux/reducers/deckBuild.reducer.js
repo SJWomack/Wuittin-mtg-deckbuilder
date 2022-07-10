@@ -1,5 +1,6 @@
+import { combineReducers } from 'redux'; 
 
-const deckBuildReducer = (state = {}, action) => {
+const deckBuildList = (state = {}, action) => {
     switch (action.type) {
         case 'ADD_TO_CURRENT_BUILD':
             return { ...state, [action.payload.id]: action.payload };
@@ -20,4 +21,23 @@ const deckBuildReducer = (state = {}, action) => {
     }
 }
 
+const workingDeckData = (state = {}, action) =>{
+    switch (action.type) {
+        case 'SET_WORKING_DECK':
+            return action.payload;
+        default: 
+            return state;
+    }
+}
+
+
+
+const deckBuildReducer = combineReducers({
+    deckBuildList,
+    workingDeckData
+
+})
+
 export default deckBuildReducer;
+
+

@@ -10,12 +10,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeckManipulatePageQtyPicker from './components/DeckManipulatePageQtyPicker';
 import { useHistory, useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 
 
 function DeckManipulatePage() {
+  const workingDeck = useSelector(store => store.deckBuild.workingDeckData)
   const history = useHistory();
   const { format } = useParams();
   const dispatch = useDispatch();
@@ -24,16 +25,24 @@ function DeckManipulatePage() {
   const [isNamed, setIsNamed] = useState(false)
 
 
-  const cards = useSelector((store) => store.deckBuild)
-  const cardProperty = Object.values(cards);
-  console.log(cardProperty)
+  const cards = useSelector((store) => store.deckBuild.deckBuildList)
+  const cardList = Object.values(cards);
+  console.log(cardList)
+
+  useEffect(() => {
+    if (workingDeck.deck_name){
+      setDeckName(workingDeck.deck_name);
+      setIsNamed(true);
+    }
+    return
+  },[])
 
   function handleSearch() {
     history.push(`/results/${searchTerm}`)
     setSearchTerm('')
   }
 
-  function handleDeckCreation(evt) {
+  function handleDeckCreation() {
     if (deckName) {
       dispatch({
         type: 'CREATE_DECK',
@@ -45,8 +54,15 @@ function DeckManipulatePage() {
       alert('Please enter a name for your deck!');
       return;
     }
+  }
 
-
+  function addCards () {
+    if (cardList[0]){
+      dispatch({
+        type: 'ADD_CARDS_TO_DECK',
+        payload: {cardList, id:workingDeck.id}
+      })
+    }
   }
 
   return (
@@ -55,7 +71,7 @@ function DeckManipulatePage() {
         <TextField
           required
           id="outlined-required"
-          label="Required"
+          label="Deck Name"
           value={deckName}
           onChange={event => setDeckName(event.target.value)}
         />
@@ -69,7 +85,7 @@ function DeckManipulatePage() {
           <TextField
             required
             id="outlined-required"
-            label="Required"
+            label="Search..."
             value={searchTerm}
             onChange={event => setSearchTerm(event.target.value)}
 
@@ -89,7 +105,7 @@ function DeckManipulatePage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {cardProperty.map((card) => (
+              {cardList.map((card) => (
                 <TableRow
                   key={card.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -107,7 +123,7 @@ function DeckManipulatePage() {
         </TableContainer>
 
 
-        <Button variant="contained" size="medium">
+        <Button onClick={addCards} variant="contained" size="medium">
           Save
         </Button>
         <Button variant="contained" size="medium"

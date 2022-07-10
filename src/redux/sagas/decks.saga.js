@@ -19,7 +19,11 @@ function* fetchFormatDecks (action) {
 function* newDeck (action) {
     try{
         const newDeck = yield axios.post('/api/deck/new', action.payload)
-       
+        console.log(newDeck.data);
+        yield put ({
+            type: 'SET_WORKING_DECK',
+            payload: newDeck.data[0]
+        })
     }
     catch (err){
         console.error('deck creation failed', err);

@@ -24,15 +24,17 @@ router.get('/format/:formatType', rejectUnauthenticated, (req,res) =>{
 router.post ('/new', rejectUnauthenticated, (req,res) =>{
     const queryText = `
         INSERT INTO "decks" (deck_name, format_type, user_id) 
-        VALUES ($1, $2, $3);
+        VALUES ($1, $2, $3)
+        RETURNING *;
         
     `
     const queryParams = [req.body.deckName, req.body.format, req.user.id]
 
     pool.query (queryText, queryParams)
-        .then(() => {
-            console.log('deck created');
-            res.sendStatus(200)
+        .then((result) => {
+            res.send(result.rows)
+            console.log('deck created', result);
+            
         } )
         .catch((err) => {
             console.log('err in created deck', err);
