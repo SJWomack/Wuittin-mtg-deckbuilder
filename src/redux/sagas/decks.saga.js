@@ -19,11 +19,11 @@ function* fetchFormatDecks (action) {
 function* newDeck (action) {
     try{
         const newDeck = yield axios.post('/api/deck/new', action.payload)
-        alert('Deck Created!');
+       
     }
     catch (err){
         console.error('deck creation failed', err);
-        alert('Deck Creation failed, please try again');
+        alert('Name already in use, please enter something different.');
         return;
     }
 }

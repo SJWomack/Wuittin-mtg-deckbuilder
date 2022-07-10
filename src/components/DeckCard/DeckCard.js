@@ -13,12 +13,12 @@ function DeckCard ({deck}) {
     return (
         <Card sx={{ padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
           <CardActionArea onClick={() => history.push(`/decklist/${deck.id}`)}>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               height="120"
               image={deck.img}
               alt="deck img"
-            />
+            /> */}
             <CardContent >
               <Typography gutterBottom variant="h5" component="div">
                 {deck.deck_name}

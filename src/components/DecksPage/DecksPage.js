@@ -34,12 +34,12 @@ function DecksPage() {
            
             <Card sx={{ width: 150, textAlign: 'center' }}>
                 <CardActionArea onClick={() => history.push('/create/' + format )}>
-                    <CardMedia
+                    {/* <CardMedia
                         component="img"
                         height="120"
                         image="/static/images/cards/contemplative-reptile.jpg"
                         alt="green iguana"
-                    />
+                    /> */}
                     <CardContent >
                         <Typography variant="h8" component="div">
                             Create New Deck
