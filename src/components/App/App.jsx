@@ -14,11 +14,15 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import FormatPage from '../FormatPage/FormatPage'
+import DeckListPage from '../DeckListPage/DeckListPage';
+import DecksPage from '../DecksPage/DecksPage';
+import DeckManipulatePage from '../DeckManipulatePage/DeckManipulatePage';
+import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
 
 import './App.css';
 
@@ -48,25 +52,46 @@ function App() {
             <AboutPage />
           </Route>
 
+          <ProtectedRoute
+            exact
+            path='/results/:searchTerm'
+          >
+            <SearchResultsPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute 
+              exact 
+              path='/decks/:format'
+          >
+            <DecksPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/decklist/:id"
+          >
+            <DeckListPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path='/create/:format'
+          >
+            <DeckManipulatePage />
+          </ProtectedRoute>
+
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+      
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
             exact
-            path="/user"
+            path="/format"
           >
-            <UserPage />
+            <FormatPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
 
           <Route
             exact
@@ -75,7 +100,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/format" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -89,7 +114,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/format" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -103,7 +128,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/format" />
               :
               // Otherwise, show the Landing page
               <LandingPage />

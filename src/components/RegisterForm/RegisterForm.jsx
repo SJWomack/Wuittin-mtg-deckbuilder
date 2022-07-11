@@ -17,6 +17,8 @@ function RegisterForm() {
         password: password,
       },
     });
+    setUsername('');
+    setPassword('');
   }; // end registerUser
 
   return (

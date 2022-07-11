@@ -9,6 +9,9 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+const deckRouter = require('./routes/deck.router');
+const deckCardsRouter = require('./routes/deckCards.router')
+const scryfallRouter = require('./routes/scryfall.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -23,6 +26,9 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/deck', deckRouter);
+app.use('/api/deckCards', deckCardsRouter);
+app.use('/api/scryfall/', scryfallRouter);
 
 // Serve static files
 app.use(express.static('build'));
