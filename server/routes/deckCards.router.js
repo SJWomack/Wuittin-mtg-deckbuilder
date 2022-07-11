@@ -24,13 +24,15 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log(req.body)
-    const values = req.body.cardList.map((card) => {return (`'${card.id}', ${req.body.id}, '${card.name}', '${card.type}', ${card.quantity}`)} )
+    const valuePlaceholder = (req.body.cardList).map((card, i) => {return ( `($1 , $${(4 * i) + 2}, $${(4 * i) + 3}, $${(4 * i) + 4}, $${(4 * i) + 5} )`)})
+    const values = req.body.cardList.map((card) => {return ([card.id, card.name, card.type, card.quantity])} )
+    console.log(valuePlaceholder)
     const sqlQuery =`
-    INSERT INTO "deck_cards" (card_id, deck_id, card_name, card_type, quantity)
-    VALUES ${values.map(value => `(${value})`)}
+    INSERT INTO "deck_cards" (deck_id, card_id, card_name, card_type, quantity)
+    VALUES ${valuePlaceholder.join(',')}
     `
-    console.log(sqlQuery)
-    pool.query(sqlQuery)
+    console.log(sqlQuery, values.flat(1))
+    pool.query(sqlQuery, [req.body.id, values.flat(1)].flat(1))
         .then(() => {
             console.log('success in card add')
             res.sendStatus(201);

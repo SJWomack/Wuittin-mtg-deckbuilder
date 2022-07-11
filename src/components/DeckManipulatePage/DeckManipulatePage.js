@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 
 
 function DeckManipulatePage() {
-  const workingDeck = useSelector(store => store.deckBuild.workingDeckData)
+  const workingDeck = useSelector(store => store.deck.workingDeckData)
   const history = useHistory();
   const { format } = useParams();
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function DeckManipulatePage() {
   const [isNamed, setIsNamed] = useState(false)
 
 
-  const cards = useSelector((store) => store.deckBuild.deckBuildList)
+  const cards = useSelector((store) => store.deck.deckBuildList)
   const cardList = Object.values(cards);
   console.log(cardList)
 
