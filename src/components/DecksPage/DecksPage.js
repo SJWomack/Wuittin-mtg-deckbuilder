@@ -24,16 +24,22 @@ function DecksPage() {
     }
         , [format])
 
-  
+
 
 
 
     return (
         <section style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
-            {formatList && formatList.map(deck => <DeckCard  key={deck.id} deck={deck} />)}
-           
+            {formatList && formatList.map(deck => <DeckCard key={deck.id} deck={deck} />)}
+
             <Card sx={{ width: 150, textAlign: 'center' }}>
-                <CardActionArea onClick={() => history.push('/create/' + format )}>
+                <CardActionArea onClick={() => {
+                    history.push('/create/' + format);
+
+                    dispatch ({ type: 'CLEAR_DECK_BUILD' });
+                    dispatch({ type: 'CLEAR_WORKING_DECK' });
+
+                }}>
                     {/* <CardMedia
                         component="img"
                         height="120"

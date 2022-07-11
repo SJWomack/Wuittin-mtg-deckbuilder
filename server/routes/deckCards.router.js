@@ -8,7 +8,7 @@ const {
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
-        SELECT * FROM "deck_cards" 
+        SELECT *, card_id AS id, card_name AS name, card_type AS type, deck_id, quantity FROM "deck_cards" 
         WHERE deck_cards.deck_id = ${req.params.id}
     `
     pool.query(sqlQuery)

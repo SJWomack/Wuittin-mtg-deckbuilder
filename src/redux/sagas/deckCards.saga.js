@@ -5,10 +5,6 @@ function* addCardsToDeck(action) {
     try {
         yield axios.post('/api/deckCards/', action.payload);
 
-        yield put({ type: 'CLEAR_DECK_BUILD' });
-        yield put({ type: 'CLEAR_WORKING_DECK' });
-
-
     }
     catch (err) {
         console.error('failed to add cards', err);
