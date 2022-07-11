@@ -63,6 +63,9 @@ function DeckManipulatePage() {
         payload: {cardList, id:workingDeck.id}
       })
     }
+    history.push(`/decklist/${workingDeck.id}`)
+
+    
   }
 
   return (
@@ -129,6 +132,7 @@ function DeckManipulatePage() {
         <Button variant="contained" size="medium"
           onClick={() => {
             dispatch({ type: 'CLEAR_DECK_BUILD' });
+            // todo -- delete deck on cancel
             history.goBack();
           }}>
           Cancel
