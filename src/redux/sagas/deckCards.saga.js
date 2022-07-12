@@ -18,7 +18,7 @@ function* fetchCardsInDeck(action) {
         console.log(deckList);
         const deckObjectForReducer = (deckList.data).reduce(
             (obj, item) => ({
-                ...obj, [item.card_id]: item
+                ...obj, [item.id]: item
             }), {});
         console.log(deckObjectForReducer);
 

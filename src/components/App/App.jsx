@@ -23,6 +23,7 @@ import DeckListPage from '../DeckListPage/DeckListPage';
 import DecksPage from '../DecksPage/DecksPage';
 import DeckManipulatePage from '../DeckManipulatePage/DeckManipulatePage';
 import SearchResultsPage from '../SearchResultsPage/SearchResultsPage';
+import CardDetailsPage from '../CardDetailsPage/CardDetailsPage'
 
 import './App.css';
 
@@ -51,6 +52,13 @@ function App() {
           >
             <AboutPage />
           </Route>
+
+          <ProtectedRoute
+            exact
+            path="/details/:id"
+            >
+              <CardDetailsPage />
+            </ProtectedRoute>
 
           <ProtectedRoute
             exact

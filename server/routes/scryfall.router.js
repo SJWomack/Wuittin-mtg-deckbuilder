@@ -13,4 +13,14 @@ router.get('/search/:term', (req,res) =>{
         .catch((err) => {console.log('scryfall search failed', err); res.sendStatus(500)})
 })
 
+router.get('/details/:id', (req,res) =>{
+    axios.get('https://api.scryfall.com/cards/' + req.params.id)
+        .then((result) =>{
+            res.send(result.data);
+        })
+        .catch((err) => {console.log('scryfall search failed', err); res.sendStatus(500)})
+})
+
+
+
 module.exports = router;

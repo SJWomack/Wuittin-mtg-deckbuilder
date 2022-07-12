@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams , Link} from 'react-router-dom'
 
 function DeckListPage() {
     const dispatch = useDispatch();
@@ -30,9 +30,9 @@ function DeckListPage() {
                         if ((card.type).includes('Creature')) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card => <li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
                     })}</ul>
 
                     <h3>Enchantment</h3>
@@ -41,9 +41,9 @@ function DeckListPage() {
                         if ((card.type).includes('Enchantment') && (card.type).indexOf('Creature') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card => <li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
                     })}</ul>
 
                     <h3>Instant</h3>
@@ -52,31 +52,31 @@ function DeckListPage() {
                         if ((card.type).includes('Instant') && (card.type).indexOf('Creature') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card =><li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li> )}
+                        </div>)
                     })}</ul>
 
                     <h3>Sorcery</h3>
                     <ul>{cardList.map(card => {
                         const cardsToRender = []
-                        if ((card.type).includes('Sorcery') && (card.type).indexOf('Creature') === -1 && (card.card_type).indexOf('Instant') === -1) {
+                        if ((card.type).includes('Sorcery') && (card.type).indexOf('Creature') === -1 && (card.type).indexOf('Instant') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card => <li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
                     })}</ul>
 
                     <h3>Artifact</h3>
                     <ul>{cardList.map(card => {
                         const cardsToRender = []
-                        if ((card.type).includes('Artifact') && (card.type).indexOf('Creature') === -1 && (card.card_type).indexOf('Land') === -1) {
+                        if ((card.type).includes('Artifact') && (card.type).indexOf('Creature') === -1 && (card.type).indexOf('Land') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.card_name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card =><li key={card.id}> <Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
                     })}</ul>
 
                     <h3>Planeswalker</h3>
@@ -85,9 +85,9 @@ function DeckListPage() {
                         if ((card.type).includes('Planeswalker') && (card.type).indexOf('Creature') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card => <li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
 
                     })}</ul>
 
@@ -97,9 +97,9 @@ function DeckListPage() {
                         if ((card.type).includes('Land') && (card.type).indexOf('Creature') === -1) {
                             cardsToRender.push(card)
                         }
-                        return (<>
-                            {cardsToRender.map(card => <li key={card.id}><span>{card.card_name}</span> x{card.quantity}</li>)}
-                        </>)
+                        return (<div key={card.id}>
+                            {cardsToRender.map(card => <li key={card.id}><Link to={`/details/${card.id}`}><span>{card.name}</span></Link> x{card.quantity}</li>)}
+                        </div>)
                     })}</ul>
 
                 </main> :
