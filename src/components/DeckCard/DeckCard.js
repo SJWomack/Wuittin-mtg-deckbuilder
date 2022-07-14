@@ -5,22 +5,16 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import { useHistory } from "react-router-dom";
-import {useDispatch} from 'react-redux'
 
 
 function DeckCard ({deck}) {
   const history = useHistory();
-  const dispatch = useDispatch();
 
 
     return (
         <Card sx={{ padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
           <CardActionArea onClick={() => {
-            history.push(`/decklist/${deck.id}`)
-            dispatch({
-              type:'SET_WORKING_DECK',
-              payload: deck
-            })
+            history.push(`/decklist/${deck.id}`)        
           }}>
             {/* <CardMedia
               component="img"

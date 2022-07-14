@@ -9,9 +9,9 @@ const {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlQuery = `
         SELECT card_id AS id, card_name AS name, card_type AS type, deck_id, quantity FROM "deck_cards"
-        WHERE deck_cards.deck_id = ${req.params.id}
+        WHERE deck_cards.deck_id = $1
     `
-    pool.query(sqlQuery)
+    pool.query(sqlQuery, [req.params.id])
         .then((results) =>{
             console.log('get cards success')
             res.send(results.rows);
@@ -19,6 +19,22 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         .catch((err) => {
             console.log('get cards failed', err)
             res.sendStatus(500);
+        })
+})
+
+router.delete('/:deck_id/:id', rejectUnauthenticated, (req, res) =>{
+    const sqlQuery =`
+        DELETE FROM "deck_cards" WHERE "card_id" = $1 and "deck_id" = $2
+        RETURNING card_name;
+    `
+    pool.query(sqlQuery, [req.params.id, req.params.deck_id])
+        .then ((results) =>{
+            console.log(results.rows)
+            res.send(results.rows)
+        })
+        .catch ((err) => {
+            console.log('delete card success', err);
+            res.send()
         })
 })
 
@@ -43,5 +59,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
    
 });
+
 
 module.exports = router;

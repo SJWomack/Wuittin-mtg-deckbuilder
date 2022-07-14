@@ -97,7 +97,7 @@ function DeckManipulatePage() {
             Search
           </Button>
         </form>
-
+        <h3>Cards in deck:{cardList.reduce((previousVal, item) => previousVal + item.quantity, 0)}</h3>
         <TableContainer component={Paper}>
           <Table sx={{}} aria-label="simple table">
             <TableHead>

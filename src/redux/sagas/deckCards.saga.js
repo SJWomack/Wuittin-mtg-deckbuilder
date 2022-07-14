@@ -12,6 +12,21 @@ function* addCardsToDeck(action) {
 
 }
 
+function* deleteCardFromDeck(action) {
+    try{
+      const deleteConfirm =  yield axios.delete(`/api/deckCards/${action.payload.deck_id}/${action.payload.id}` );
+
+      yield put ({
+        type: 'FETCH_CARDS_IN_DECK',
+        payload: {id: action.payload.deck_id}
+      })
+    }
+
+    catch(err) {
+        console.error('err in delete card', err);
+    }
+}
+
 function* fetchCardsInDeck(action) {
     try {
         const deckList = yield axios.get(`/api/deckCards/${action.payload.id}`);
@@ -37,6 +52,7 @@ function* fetchCardsInDeck(action) {
 function* deckCards() {
     yield takeLatest('ADD_CARDS_TO_DECK', addCardsToDeck);
     yield takeLatest('FETCH_CARDS_IN_DECK', fetchCardsInDeck);
+    yield takeLatest('DELETE_CARD_FROM_DECK', deleteCardFromDeck);
 }
 
 export default deckCards;

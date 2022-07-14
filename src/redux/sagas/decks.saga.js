@@ -16,6 +16,19 @@ function* fetchFormatDecks (action) {
    }
 }
 
+function* fetchDeckData(action) {
+    try {
+        const deckData = yield axios.get('/api/deck/'+action.payload.id)
+        yield put ({
+            type: 'SET_WORKING_DECK',
+            payload: deckData.data[0]
+        })
+    }
+    catch (err) {
+        console.err('err in fetch deck data',err)
+    }
+}
+
 function* newDeck (action) {
     try{
         const newDeck = yield axios.post('/api/deck/new', action.payload)
@@ -27,14 +40,25 @@ function* newDeck (action) {
     }
     catch (err){
         console.error('deck creation failed', err);
-        alert('Name already in use, please enter something different.');
         return;
+    }
+}
+
+function* deleteDeck (action) {
+    try{
+        yield axios.delete('/api/deck/delete/'+action.payload.id)
+        alert('Deck Deleted!')
+    }
+    catch(err) {
+        console.error('deck delete failed',err)
     }
 }
 
 function* decksSaga(){
     yield takeLatest ('FETCH_FORMAT_DECKS', fetchFormatDecks);
     yield takeLatest ('CREATE_DECK', newDeck);
+    yield takeLatest ('DELETE_DECK', deleteDeck);
+    yield takeLatest ('FETCH_DECK_DATA', fetchDeckData);
 }
 
 export default decksSaga;

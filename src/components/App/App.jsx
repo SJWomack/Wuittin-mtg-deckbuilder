@@ -56,9 +56,9 @@ function App() {
           <ProtectedRoute
             exact
             path="/details/:id"
-            >
-              <CardDetailsPage />
-            </ProtectedRoute>
+          >
+            <CardDetailsPage />
+          </ProtectedRoute>
 
           <ProtectedRoute
             exact
@@ -67,9 +67,17 @@ function App() {
             <SearchResultsPage />
           </ProtectedRoute>
 
-          <ProtectedRoute 
-              exact 
-              path='/decks/:format'
+          <ProtectedRoute
+            exact
+            path="/results/:id/:searchTerm"
+          >
+            <SearchResultsPage />
+
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path='/decks/:format'
           >
             <DecksPage />
           </ProtectedRoute>
@@ -92,7 +100,7 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-      
+
           <ProtectedRoute
             exact
             path="/format"
