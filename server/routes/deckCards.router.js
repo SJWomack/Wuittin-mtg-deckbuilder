@@ -57,6 +57,14 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             console.log('err in add', err)
             res.sendStatus(500)
         })
+
+    router.put('/:id', (req, res) => {
+        const sqlQuery=`
+        UPDATE "deck_cards" 
+        SET quantity = $1
+        WHERE card_id = $2
+        `
+    })
    
 });
 

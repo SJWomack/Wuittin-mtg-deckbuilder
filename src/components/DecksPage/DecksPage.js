@@ -38,6 +38,7 @@ function DecksPage() {
 
                     dispatch ({ type: 'CLEAR_DECK_BUILD' });
                     dispatch({ type: 'CLEAR_WORKING_DECK' });
+                    dispatch({ type: 'LEAVE_EDIT_MODE' });
 
                 }}>
                     {/* <CardMedia

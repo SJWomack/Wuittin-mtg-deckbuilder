@@ -44,7 +44,7 @@ function DeckListPage() {
                 <h2>{deckData.deck_name}</h2>
             }
             {cardList.length > 0 ?
-                <main>
+                <main >
 
                     <p>Cards in deck:{cardList.reduce((previousVal, item) => previousVal + item.quantity, 0)}</p>
 
@@ -193,13 +193,17 @@ function DeckListPage() {
                 <>
                     <Button variant='contained' size='medium' onClick={() => {
                         dispatch({ type: 'LEAVE_EDIT_MODE' });
+                        if (cardsAdded[0]){
+                            dispatch({type:'ADD_CARDS_TO_DECK', payload: {cardList: cardsAdded, id:deckData.id} });
+                        }
+                        dispatch ({type:'CLEAR_CARDS_TO_ADD'})
                     }}>
                         Save
                     </Button>
                     <Button variant="contained" size="medium" onClick={() => {
                         dispatch({ type: 'DELETE_DECK', payload: { id } });
-
-                        history.push('/decks/')
+                        dispatch({ type: 'LEAVE_EDIT_MODE' });
+                        history.push('/decks/'+deckData.format_type)
                     }}>Delete Deck</Button>
                 </>}
 

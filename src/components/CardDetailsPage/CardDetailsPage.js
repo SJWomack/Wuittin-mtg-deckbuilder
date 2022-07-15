@@ -25,7 +25,7 @@ function CardDetailsPage() {
     }, [])
     return (<>
         {details.name ?
-            <Card sx={{ maxWidth: 350 }}>
+            <Card sx={{margin: 'auto',  maxWidth: 350 }}>
 
                 <CardMedia
                     component="img"

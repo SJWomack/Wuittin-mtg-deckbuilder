@@ -13,9 +13,10 @@ function DeckListQtyEdit({ card , listType }) {
 
         <>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 20, maxHeight: 50}}>
-                <InputLabel id="demo-simple-select-standard-label">Qty</InputLabel>
+               <div>
                 <Select
-                    labelId="demo-simple-select-standard-label"
+                size="small"
+                    labelId="demo-simple-select-label"
                     id="demo-simple-select-standard"
                     value={card.quantity}
                     onChange={(event) => {
@@ -31,7 +32,7 @@ function DeckListQtyEdit({ card , listType }) {
                         }
                 label="Qty"
                 >
-
+{/* please dear god loop */}
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
@@ -58,6 +59,7 @@ function DeckListQtyEdit({ card , listType }) {
                 <MenuItem value={24}>24</MenuItem>
                 <MenuItem value={25}>25</MenuItem>
             </Select>
+            </div>
         </FormControl>
         </>
     )

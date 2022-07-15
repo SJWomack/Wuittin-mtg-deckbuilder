@@ -26,7 +26,7 @@ function FormatPage() {
             <Box sx={{ '& button': { m: 2 },  display: 'flex', flexDirection: 'column', flexWrap:'wrap', alignContent:'center' }}>
                 <h1 >Choose A Format</h1>
 
-                <Button onClick={() => handleClick('standard')} variant="outlined" size="large">
+                <Button onClick={() => handleClick('standard')} variant="outlined" size="large" >
                     Standard
                 </Button>
                 <Button  onClick={() => handleClick('commander')} variant="outlined" size="large">

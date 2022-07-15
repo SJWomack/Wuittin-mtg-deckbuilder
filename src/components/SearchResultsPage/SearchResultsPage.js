@@ -48,9 +48,9 @@ function SearchResultsPage() {
     }
 
     return (
-        <>
-            <h2>Search Results:</h2>
-            <ul>
+        <div  >
+            <h3 style={{margin: 'auto', maxWidth: '70%', borderBottom: '5px solid black'}}>Search Results:  {searchTerm}</h3>
+            <ul style={{margin: 'auto', maxWidth: '70%'}}>
                 {results[0] && results.map(res =>
 
                     <li key={res.id}>
@@ -60,7 +60,7 @@ function SearchResultsPage() {
                     </li>
                 )}
             </ul>
-        </>
+        </div>
     )
 }
 

@@ -132,7 +132,7 @@ function DeckManipulatePage() {
         <Button variant="contained" size="medium"
           onClick={() => {
             dispatch({ type: 'CLEAR_DECK_BUILD' });
-            // todo -- delete deck on cancel
+            dispatch({ type: 'DELETE_DECK', payload: {id:workingDeck.id}})
             history.goBack();
           }}>
           Cancel
