@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeckManipulatePageQtyPicker from './components/DeckManipulatePageQtyPicker';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useHistory, useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -99,7 +100,7 @@ function DeckManipulatePage() {
         </form>
         <h3>Cards in deck:{cardList.reduce((previousVal, item) => previousVal + item.quantity, 0)}</h3>
         <TableContainer component={Paper}>
-          <Table sx={{}} aria-label="simple table">
+          <Table sx={{backgroundColor:'#dfd3c3'}} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Cards</TableCell>
@@ -117,7 +118,7 @@ function DeckManipulatePage() {
                     <Link to={'/details/' + card.id}> {card.name} </Link>
                   </TableCell>
                   <TableCell align="right"><Button><DeckManipulatePageQtyPicker card={card} /></Button></TableCell>
-                  <TableCell align="right"><Button onClick={() => { dispatch({ type: 'DELETE_CARD', payload: card }) }}>remove</Button></TableCell>
+                  <TableCell align="right"><Button onClick={() => { dispatch({ type: 'DELETE_CARD', payload: card }) }}><DeleteIcon sx={{color:'white'}}/></Button></TableCell>
 
                 </TableRow>
               ))}

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,6 +8,7 @@ import Select from '@mui/material/Select';
 
 function DeckListQtyEdit({ card , listType }) {
     const dispatch = useDispatch();
+    const deck_id = useSelector (store => store.deck.workingDeckData.id)
     console.log(listType)
     return (
 
@@ -22,8 +23,8 @@ function DeckListQtyEdit({ card , listType }) {
                     onChange={(event) => {
                         listType === 'currentCards' ?
                             dispatch({
-                                type: 'UPDATE_WORKING_QUANTITY',
-                                payload: { id: card.id, cardCount: event.target.value }
+                                type: 'UPDATE_CARD_QUANTITY',
+                                payload: { id: card.id, quantity: event.target.value, deck_id:deck_id }
                             }):
                             dispatch({
                                 type:'UPDATE_ADD_QUANTITY',

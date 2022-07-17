@@ -1,46 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import {  useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import Paper from '@mui/material/Paper';
+import { shadows } from '@mui/system';
+
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const history = useHistory();
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title"> Wuttin the Deck?</h2>
-      </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
-            Login / Register
-          </Link>
-        )}
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Link className="navLink" to="/format">
-              Home
-            </Link>
+    <Box sx={{ width: 390 }}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={4}>
 
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
+        <BottomNavigation
+          showLabels
+          sx={{backgroundColor:'#596e79'}}
+        >
+          <BottomNavigationAction sx={{color: 'lightgray'}} label="Home" onClick={() => history.push('/home')}  icon={<HomeIcon />} />
+          <BottomNavigationAction sx={{color: 'lightgray'}} label="Search" icon={<SearchIcon />} />
+          <BottomNavigationAction sx={{color: 'lightgray'}} label="Shop" onClick={() => window.open('https://www.tcgplayer.com/search/magic/product?productLineName=magic&page=1&view=grid')} icon={<StorefrontIcon />} />
 
-            <LogOutButton className="navLink" />
-          </>
-        )}
+        </BottomNavigation>
+        </Paper>
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
-    </div>
+    </Box>
+   
   );
 }
 

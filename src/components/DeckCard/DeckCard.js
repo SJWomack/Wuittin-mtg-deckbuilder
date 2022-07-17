@@ -12,7 +12,7 @@ function DeckCard ({deck}) {
 
 
     return (
-        <Card sx={{ padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
+        <Card sx={{  backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
           <CardActionArea onClick={() => {
             history.push(`/decklist/${deck.id}`)        
           }}>

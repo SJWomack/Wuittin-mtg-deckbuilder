@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const {
     rejectUnauthenticated,
-  } = require('../modules/authentication-middleware');
+} = require('../modules/authentication-middleware');
 
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
@@ -12,7 +12,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         WHERE deck_cards.deck_id = $1
     `
     pool.query(sqlQuery, [req.params.id])
-        .then((results) =>{
+        .then((results) => {
             console.log('get cards success')
             res.send(results.rows);
         })
@@ -22,17 +22,17 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-router.delete('/:deck_id/:id', rejectUnauthenticated, (req, res) =>{
-    const sqlQuery =`
+router.delete('/:deck_id/:id', rejectUnauthenticated, (req, res) => {
+    const sqlQuery = `
         DELETE FROM "deck_cards" WHERE "card_id" = $1 and "deck_id" = $2
         RETURNING card_name;
     `
     pool.query(sqlQuery, [req.params.id, req.params.deck_id])
-        .then ((results) =>{
+        .then((results) => {
             console.log(results.rows)
             res.send(results.rows)
         })
-        .catch ((err) => {
+        .catch((err) => {
             console.log('delete card success', err);
             res.send()
         })
@@ -40,10 +40,10 @@ router.delete('/:deck_id/:id', rejectUnauthenticated, (req, res) =>{
 
 router.post('/', rejectUnauthenticated, (req, res) => {
     console.log(req.body)
-    const valuePlaceholder = (req.body.cardList).map((card, i) => {return ( `($1 , $${(4 * i) + 2}, $${(4 * i) + 3}, $${(4 * i) + 4}, $${(4 * i) + 5} )`)})
-    const values = req.body.cardList.map((card) => {return ([card.id, card.name, card.type, card.quantity])} )
+    const valuePlaceholder = (req.body.cardList).map((card, i) => { return (`($1 , $${(4 * i) + 2}, $${(4 * i) + 3}, $${(4 * i) + 4}, $${(4 * i) + 5} )`) })
+    const values = req.body.cardList.map((card) => { return ([card.id, card.name, card.type, card.quantity]) })
     console.log(valuePlaceholder)
-    const sqlQuery =`
+    const sqlQuery = `
     INSERT INTO "deck_cards" (deck_id, card_id, card_name, card_type, quantity)
     VALUES ${valuePlaceholder.join(',')}
     `
@@ -58,14 +58,25 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500)
         })
 
-    router.put('/:id', (req, res) => {
-        const sqlQuery=`
-        UPDATE "deck_cards" 
-        SET quantity = $1
-        WHERE card_id = $2
-        `
-    })
-   
+});
+
+router.put('/:id', (req, res) => {
+    const sqlQuery = `
+    UPDATE "deck_cards" 
+    SET quantity = $1
+    WHERE card_id = $2 and deck_id = $3
+    `
+
+
+    pool.query(sqlQuery, [req.body.quantity, req.params.id, req.body.deck_id])
+        .then(() => {
+            console.log('quantity updated');
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('err in quantity update', err);
+            res.sendStatus(500);
+        })
 });
 
 
