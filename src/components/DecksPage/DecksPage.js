@@ -9,6 +9,7 @@ import { CardActionArea } from '@mui/material';
 import DeckCard from '../DeckCard/DeckCard';
 
 
+
 function DecksPage() {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -20,7 +21,9 @@ function DecksPage() {
         dispatch({
             type: 'FETCH_FORMAT_DECKS',
             payload: format
-        })
+        });
+        dispatch ({type:'CLEAR_CARDS_TO_ADD'});
+        dispatch({ type:'LEAVE_EDIT_MODE'});
     }
         , [format])
 
@@ -32,12 +35,13 @@ function DecksPage() {
         <section style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
             {formatList && formatList.map(deck => <DeckCard key={deck.id} deck={deck} />)}
 
-            <Card sx={{ width: 150, textAlign: 'center' }}>
+            <Card sx={{ backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
                 <CardActionArea onClick={() => {
                     history.push('/create/' + format);
 
                     dispatch ({ type: 'CLEAR_DECK_BUILD' });
                     dispatch({ type: 'CLEAR_WORKING_DECK' });
+                    dispatch({ type: 'LEAVE_EDIT_MODE' });
 
                 }}>
                     {/* <CardMedia

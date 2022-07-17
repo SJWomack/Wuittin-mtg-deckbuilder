@@ -6,7 +6,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Button from '@mui/material/Button';
+
 
 function CardDetailsPage() {
     const [details, setDetails] = useState({})
@@ -25,7 +27,7 @@ function CardDetailsPage() {
     }, [])
     return (<>
         {details.name ?
-            <Card sx={{ maxWidth: 350 }}>
+            <Card sx={{ margin: 'auto', maxWidth: 350 }}>
 
                 <CardMedia
                     component="img"
@@ -33,18 +35,27 @@ function CardDetailsPage() {
                     image={details.image_uris.normal}
                     alt={details.name}
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                <CardContent sx={{ backgroundColor: '#dfd3c3' }}>
+                    <Typography variant="h5" component="div">
                         {details.name}
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle2">
+                        {details.type_line}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {details.oracle_text}
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle2">
+
+                        Average Price: ${details.prices.usd}
+                        <Button sx={{ color: '#596e79', margin:'0 auto' }} onClick={() => window.open(details.purchase_uris.tcgplayer)}>Purchase</Button>
+
                     </Typography>
                 </CardContent>
 
             </Card> :
             <p>Loading...</p>}
-            <button onClick={() => {history.goBack()}}>Back</button>
+        <Button onClick={() => { history.goBack() }}><ArrowBackIcon size="large" sx={{ color: '#596e79' }} /></Button>
     </>)
 }
 
