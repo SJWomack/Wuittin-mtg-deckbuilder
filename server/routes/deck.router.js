@@ -42,12 +42,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 router.post('/new', rejectUnauthenticated, (req, res) => {
     const queryText = `
-        INSERT INTO "decks" (deck_name, format_type, user_id) 
-        VALUES ($1, $2, $3)
+        INSERT INTO "decks" (deck_name, format_type, deck_thumbnail, user_id) 
+        VALUES ($1, $2, $3, $4)
         RETURNING *;
         
     `
-    const queryParams = [req.body.deckName, req.body.format, req.user.id]
+    const queryParams = [req.body.deckName, req.body.format, req.body.deckPic, req.user.id]
 
     pool.query(queryText, queryParams)
         .then((result) => {

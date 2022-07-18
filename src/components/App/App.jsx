@@ -15,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import FormatPage from '../FormatPage/FormatPage'
@@ -40,9 +39,9 @@ function App() {
 
 
     <Router>
-      <div >
-        <Header />
-        <div>
+      <div className='main'>
+        <Header/>
+        <div >
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -150,7 +149,7 @@ function App() {
                 <Redirect to="/format" />
                 :
                 // Otherwise, show the Landing page
-                <LandingPage />
+                <LoginPage />
               }
             </Route>
 

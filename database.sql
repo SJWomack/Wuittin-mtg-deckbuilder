@@ -13,6 +13,7 @@ CREATE TABLE "decks" (
 	"id" SERIAL PRIMARY KEY,
 	"deck_name" VARCHAR (150) NOT NULL,
 	"format_type" VARCHAR (50),
+	"deck_thumbnail" VARCHAR,
 	"user_id" INTEGER REFERENCES "user"
 	);
 	

@@ -21,7 +21,7 @@ function DeckListCardSearch ({id}) {
             onChange={event => setSearchTerm(event.target.value)}
 
           />
-          <Button onClick={handleSearch} variant="contained" size="medium">
+          <Button onClick={handleSearch} sx={{ outline: '1px solid #596e79', color: '#596e79', marginLeft: '25px' }} variant="outlined" size="medium">
             Search
           </Button>
         </form>

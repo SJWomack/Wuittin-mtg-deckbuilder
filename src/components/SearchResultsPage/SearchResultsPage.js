@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { useParams, useHistory, Link } from 'react-router-dom'
 import axios from 'axios'
 import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 function SearchResultsPage() {
     const editMode = useSelector(store => store.deck.editDeckMode)
@@ -49,14 +50,14 @@ function SearchResultsPage() {
 
     return (
         <div  >
-            <h3 style={{margin: 'auto', maxWidth: '70%', borderBottom: '5px solid black'}}>Search Results:  {searchTerm}</h3>
-            <ul style={{margin: 'auto', maxWidth: '70%'}}>
+            <h3 style={{ margin: 'auto', maxWidth: '95%', borderBottom: '5px solid black', marginBottom:'10px'}}>Search Results:  {searchTerm}</h3>
+            <ul style={{listStyle:'none', margin: 'auto', maxWidth: '95%'}}>
                 {results[0] && results.map(res =>
 
-                    <li key={res.id}>
-                      <Link to={`/details/${res.id}`}>{res.name}</Link>  
-                     {!editMode? <Button size="small" variant='outlined' onClick={() => addToDeck(res)}>Add</Button>:
-                     <Button size="small" variant='outlined' onClick={() => addToCardsToAdd(res)}>Add to Deck</Button>}
+                    <li key={res.id} style={{marginBottom:'10px'}}>
+                      <Button key={res.id} variant='contained' sx={{ color: 'black', backgroundColor: '#dfd3c3', margin: 'auto' }} onClick={() => history.push(`/details/${res.id}`)}>{res.name}</Button>
+                     {!editMode? <Button size="small" sx={{color:'black'}} onClick={() => addToDeck(res)}><AddIcon/></Button>:
+                     <Button size="small" sx={{color:'black'}} onClick={() => addToCardsToAdd(res)}><AddIcon/></Button>}
                     </li>
                 )}
             </ul>

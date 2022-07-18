@@ -7,7 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import DeckCard from '../DeckCard/DeckCard';
-
+import addImg from '../../images/plussign.png'
 
 
 function DecksPage() {
@@ -32,10 +32,12 @@ function DecksPage() {
 
 
     return (
+        <>
+        <h1 style={{width:'fit-content', margin:'auto', marginTop:'20px', marginBottom:'25px', textTransform:'capitalize', borderBottom:'3px solid black'}}>{format}</h1>
         <section style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
             {formatList && formatList.map(deck => <DeckCard key={deck.id} deck={deck} />)}
 
-            <Card sx={{ backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
+            <Card sx={{ backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', width: 150, textAlign: 'center'}}>
                 <CardActionArea onClick={() => {
                     history.push('/create/' + format);
 
@@ -44,14 +46,14 @@ function DecksPage() {
                     dispatch({ type: 'LEAVE_EDIT_MODE' });
 
                 }}>
-                    {/* <CardMedia
+                    <CardMedia
                         component="img"
-                        height="120"
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        alt="green iguana"
-                    /> */}
+                        height="140"
+                        image={`${addImg}`}
+                        alt="new deck"
+                    />
                     <CardContent >
-                        <Typography variant="h8" component="div">
+                        <Typography variant="h7" component="div">
                             Create New Deck
                         </Typography>
 
@@ -59,6 +61,7 @@ function DecksPage() {
                 </CardActionArea>
             </Card>
         </section>
+        </>
     )
 }
 

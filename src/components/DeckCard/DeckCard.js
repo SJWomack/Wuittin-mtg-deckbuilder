@@ -7,30 +7,30 @@ import { CardActionArea } from '@mui/material';
 import { useHistory } from "react-router-dom";
 
 
-function DeckCard ({deck}) {
+function DeckCard({ deck }) {
   const history = useHistory();
 
 
-    return (
-        <Card sx={{  backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', maxWidth: 150, textAlign: 'center'}}>
-          <CardActionArea onClick={() => {
-            history.push(`/decklist/${deck.id}`)        
-          }}>
-            {/* <CardMedia
-              component="img"
-              height="120"
-              image={deck.img}
-              alt="deck img"
-            /> */}
-            <CardContent >
-              <Typography gutterBottom variant="h5" component="div">
-                {deck.deck_name}
-              </Typography>
-            
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      );
+  return (
+    <Card sx={{ backgroundColor: '#dfd3c3', marginBottom: 5, padding: 'auto', width: 150, textAlign: 'center' }}>
+      <CardActionArea onClick={() => {
+        history.push(`/decklist/${deck.id}`)
+      }}>
+        <CardMedia
+          component="img"
+          height="140"
+          image={deck.deck_thumbnail}
+          alt="deck img"
+        />
+        <CardContent >
+          <Typography variant="h7" component="div">
+            {deck.deck_name}
+          </Typography>
+
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
 }
 
 

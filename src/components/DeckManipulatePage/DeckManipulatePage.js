@@ -23,6 +23,7 @@ function DeckManipulatePage() {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState('');
   const [deckName, setDeckName] = useState('');
+  const [deckPic, setDeckPic] = useState('');
   const [isNamed, setIsNamed] = useState(false)
 
 
@@ -47,7 +48,7 @@ function DeckManipulatePage() {
     if (deckName) {
       dispatch({
         type: 'CREATE_DECK',
-        payload: { deckName, format }
+        payload: { deckName, format, deckPic }
       });
       setIsNamed(true);
     }
@@ -71,18 +72,32 @@ function DeckManipulatePage() {
 
   return (
     <>
-      {!isNamed ? <form>
+      {!isNamed ? 
+      
+      <form style={{display:'flex', flexDirection:'column', width:'300px', margin:'auto', marginTop:'25px'}}>
+        <h3>Deck Details</h3>
         <TextField
           required
           id="outlined-required"
           label="Deck Name"
           value={deckName}
           onChange={event => setDeckName(event.target.value)}
+          sx={{marginBottom:'10px'}}
         />
-        <Button onClick={handleDeckCreation} variant="contained" size="medium">Submit</Button>
+         <TextField
+          required
+          id="outlined-required"
+          label="Deck Img Url"
+          value={deckPic}
+          sx={{marginBottom:'10px'}}
+          onChange={event => setDeckPic(event.target.value)}
+        />
+        
+        
+        <Button onClick={handleDeckCreation} variant="outlined" size="medium" sx={{display:'inline-flex' ,verticalAlign:'middle', color:'#596e79'}}>Submit</Button>
       </form> :
 
-        <h3>{deckName}</h3>}
+        <h1 style={{width:'fit-content', margin:'auto', marginBottom:'25px', borderBottom:'3px solid black'}}>{deckName}</h1>}
 
       {isNamed && <div>
         <form>
@@ -94,10 +109,11 @@ function DeckManipulatePage() {
             onChange={event => setSearchTerm(event.target.value)}
 
           />
-          <Button onClick={handleSearch} variant="contained" size="medium">
+          <Button onClick={handleSearch} sx={{ outline: '1px solid #596e79', color: '#596e79', marginLeft: '25px' }} variant="outlined" size="medium">
             Search
           </Button>
         </form>
+
         <h3>Cards in deck:{cardList.reduce((previousVal, item) => previousVal + item.quantity, 0)}</h3>
         <TableContainer component={Paper}>
           <Table sx={{backgroundColor:'#dfd3c3'}} aria-label="simple table">
@@ -118,7 +134,7 @@ function DeckManipulatePage() {
                     <Link to={'/details/' + card.id}> {card.name} </Link>
                   </TableCell>
                   <TableCell align="right"><Button><DeckManipulatePageQtyPicker card={card} /></Button></TableCell>
-                  <TableCell align="right"><Button onClick={() => { dispatch({ type: 'DELETE_CARD', payload: card }) }}><DeleteIcon sx={{color:'white'}}/></Button></TableCell>
+                  <TableCell align="right"><Button onClick={() => { dispatch({ type: 'DELETE_CARD', payload: card }) }}><DeleteIcon sx={{color:'#596e79'}}/></Button></TableCell>
 
                 </TableRow>
               ))}
@@ -127,10 +143,10 @@ function DeckManipulatePage() {
         </TableContainer>
 
 
-        <Button onClick={addCards} variant="contained" size="medium">
+        <Button onClick={addCards} variant="outlined" sx={{color:'#596e79', margin:'10px'}} size="medium">
           Save
         </Button>
-        <Button variant="contained" size="medium"
+        <Button variant="outlined" sx={{color:'#596e79', margin:'10px'}} size="medium"
           onClick={() => {
             dispatch({ type: 'CLEAR_DECK_BUILD' });
             dispatch({ type: 'DELETE_DECK', payload: {id:workingDeck.id}})
